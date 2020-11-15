@@ -1,0 +1,15 @@
+<%- include("partials/header") %>
+<main id="content" class="container">
+  <h1>Scans</h1>
+
+  <ul>
+    <% for (scan of scans) { %>
+      <li>
+        <a href="<%= scan.link %>"><%= scan.dateCreated %></a>
+      </li>
+    <% } %>
+  </ul>
+
+</main>
+
+<%- include("partials/footer") %>

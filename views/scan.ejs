@@ -1,0 +1,91 @@
+<%- include("partials/header") %>
+<main id="content" class="container">
+  <a href="/">Back</a>
+
+  <hr />
+  <div class="">
+    <div class="row">
+      <div class="col-md">
+        <h1>Scan Results</h1>
+      </div>
+      <div class="col-md">
+        <p><%= scan.dateCreated %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm">
+      <h3>Versions</h3>
+    </div>
+  </div>
+  <section class="row">
+    <div class="col-sm">
+      <p>
+        <span>Ruby:</span>
+        <span class="badge badge-pill badge-primary">
+          <%= scan.scan_info.ruby_version %>
+        </span>
+      </p>
+      <p>
+        <span>Rails:</span>
+        <span class="badge badge-pill badge-primary">
+          <%= scan.scan_info.rails_version %>
+        </span>
+      </p>
+      <p>
+        <span>Brakeman:</span>
+        <span class="badge badge-pill badge-primary">
+          <%= scan.scan_info.brakeman_version %>
+        </span>
+      </p>
+    </div>
+    <div class="container col-sm">
+      <div class="row">
+        <p>Security Warnings</p>
+      </div>
+      <div id="securityWarningsChart" class="row"></div>
+    </div>
+  </section>
+
+  <div class="mb-4">
+    <span class="badge badge-pill badge-primary">
+      <span>Controllers</span>
+      <span class="badge badge-pill">
+        <%= scan.scan_info.number_of_controllers %>
+      </span>
+    </span>
+    <span class="badge badge-pill badge-primary">
+      <span>Models</span>
+      <span class="badge badge-pill">
+        <%= scan.scan_info.number_of_models %>
+      </span>
+    </span>
+    <span class="badge badge-pill badge-primary">
+      <span>Templates</span>
+      <span class="badge badge-pill">
+        <%= scan.scan_info.number_of_templates %>
+      </span>
+    </span>
+  </div>
+
+  <section>
+    <tr>
+      <td>Checks</td>
+      <td>
+        <% scan.scan_info.checks_performed.forEach(element => { %>
+        <span class="badge badge-pill badge-secondary">
+          <%= element %>
+        </span>
+        <% }) %>
+      </td>
+    </tr>
+  </section>
+  <code>
+    <%= JSON.stringify(scan, null, 2) %>
+  </code>
+  <div class="d-none" aria-hidden>
+    <span id="securityWarningsCount"><%= scan.scan_info.security_warnings %></span>
+  </div>
+</main>
+<script src="/scan.js"></script>
+<%- include("partials/footer") %>
