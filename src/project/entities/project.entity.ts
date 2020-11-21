@@ -17,6 +17,9 @@ export class Project {
   @CreateDateColumn()
   dateCreated: Date;
 
+  @Column(type => String)
+  repoUrl: string;
+
   @OneToMany(type => Scan, scan => scan.project)
   scans: Scan[];
 

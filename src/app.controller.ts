@@ -45,7 +45,16 @@ export class AppController {
   @Render('scan')
   async scan(@Param('id') id: string) {
     const scan = await this.scanService.findOne(id);
-    return { scan };
+    const fileWarnings = scan.warnings.reduce(
+      (warnings, warning) => ({
+        ...warnings,
+        [warning.file]: warnings[warning.file]
+          ? [...warnings[warning.file], warning]
+          : [warning],
+      }),
+      {}
+    );
+    return { scan, fileWarnings };
   }
 
   @Get('upload')
