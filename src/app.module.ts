@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScanModule } from './scan/scan.module';
 import { OrganizationModule } from './organization/organization.module';
+import { ProjectModule } from './project/project.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { OrganizationModule } from './organization/organization.module';
       authSource: 'admin'
     }),
     ScanModule,
-    OrganizationModule
+    OrganizationModule,
+    ProjectModule
   ],
   controllers: [AppController],
   providers: [AppService],
