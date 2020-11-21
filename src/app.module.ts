@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScanModule } from './scan/scan.module';
+import { OrganizationModule } from './organization/organization.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { ScanModule } from './scan/scan.module';
       
       authSource: 'admin'
     }),
-    ScanModule
+    ScanModule,
+    OrganizationModule
   ],
   controllers: [AppController],
   providers: [AppService],
