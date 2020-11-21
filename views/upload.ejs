@@ -1,0 +1,14 @@
+<%- include("partials/header") %>
+<main id="content" class="container">
+  <h1>Upload</h1>
+
+  <a href="/">Back</a>
+  <br />
+  <form class="container" action="/upload" method="POST" enctype="multipart/form-data">
+    <p>This file should be in JSON format.</p>
+    <input type="file" name="scan" id="scanFileInput" />
+    <button type="submit">Upload</button>
+  </form>
+</main>
+
+<%- include("partials/footer") %>
