@@ -1,18 +1,12 @@
-version: "3.8"
+version: '3.8'
 
 services:
-  mongo:
-    image: mongo
-    restart: always
+  postgres:
+    image: postgres:latest
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      DB_USER: dashman
-      DB_PASS: dashm4n
-      DB_NAME: dashman
+      POSTGRES_USER: dashman
+      POSTGRES_PASSWORD: dashm4n
     ports:
-      - "27017:27017"
+      - 5654:5432
     volumes:
-      - "./data:/data/db"
-      - "./mongo-entrypoint/:/docker-entrypoint-initdb.d/"
-    command: mongod
+      - ./data:/var/lib/postgresql/data

@@ -1,27 +1,37 @@
-import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn } from 'typeorm';
+import { Project } from 'project/entities/project.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { ScanInfo } from './scan-info.entity';
 import { Warning } from './warning.entity';
 
 @Entity()
 export class Scan {
-  @ObjectIdColumn()
-  id: ObjectID;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @CreateDateColumn()
   dateCreated: Date;
 
-  @Column(type => ScanInfo)
+  @Column({ type: 'jsonb' })
   scan_info: ScanInfo;
 
-  @Column(type => Warning)
+  @Column({ type: 'jsonb' })
   warnings: Warning[];
 
-  @Column()
+  @Column({ type: 'jsonb' })
   ignored_warnings: any[];
-  
-  @Column()
+
+  @Column({ type: 'jsonb' })
   errors: any[];
-  
-  @Column()
+
+  @Column({ type: 'jsonb' })
   obsolete: any[];
+
+  @ManyToOne(type => Project)
+  project: Project;
 }

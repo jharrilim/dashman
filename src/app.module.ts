@@ -9,22 +9,20 @@ import { ProjectModule } from './project/project.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mongodb',
+      type: 'postgres',
       host: 'localhost',
-      port: 27017,
+      port: 5654,
       username: 'dashman',
       password: 'dashm4n',
       database: 'dashman',
       entities: ['dist/**/*.entity.js'],
       synchronize: true,
-      
-      authSource: 'admin'
     }),
     ScanModule,
     OrganizationModule,
-    ProjectModule
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

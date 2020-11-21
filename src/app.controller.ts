@@ -1,4 +1,16 @@
-import { Controller, Get, Logger, Param, Post, Redirect, Render, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Logger,
+  Param,
+  Post,
+  Redirect,
+  Render,
+  Req,
+  Res,
+  UploadedFile,
+  UseInterceptors,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Request } from 'express';
 import { ScanService } from 'scan/scan.service';
@@ -11,15 +23,17 @@ export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly scanService: ScanService
-  ) { }
+  ) {}
 
   @Get(['', 'index'])
   @Render('index')
   async index() {
     try {
-      const scans = (await this.scanService.findAll())
-        .map(scan => ({ link: `/scans/${scan.id}`, dateCreated: scan.dateCreated }));
-
+      const scans = (await this.scanService.findAll()).map(scan => ({
+        link: `/scans/${scan.id}`,
+        dateCreated: scan.dateCreated,
+      }));
+      this.logger.log(scans);
       return { scans };
     } catch (e) {
       this.logger.log(e);
@@ -36,9 +50,7 @@ export class AppController {
 
   @Get('upload')
   @Render('upload')
-  upload() {
-
-  }
+  upload() {}
 
   @Post('upload')
   @Redirect('/')
