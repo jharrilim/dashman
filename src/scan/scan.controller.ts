@@ -26,17 +26,17 @@ export class ScanController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.scanService.findOne(id);
+  findOne(@Param('id') id: string) {
+    return this.scanService.findOne(+id);
   }
 
   @Put(':id')
-  update(@Param('id') id: number, @Body() updateScanDto: UpdateScanDto) {
-    return this.scanService.update(id, updateScanDto);
+  update(@Param('id') id: string, @Body() updateScanDto: UpdateScanDto) {
+    return this.scanService.update(+id, updateScanDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.scanService.remove(id);
+  remove(@Param('id') id: string) {
+    return this.scanService.remove(+id);
   }
 }
