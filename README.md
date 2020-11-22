@@ -8,7 +8,7 @@ The dashboard to brakeman.
 - [x] View an individual scan
 - [ ] Compare total warnings to previous scan
 - [ ] Per-repo/per-project scans
-- [ ] Upload via dashboard
+- [x] Upload via dashboard
 
 ## Getting Started
 
