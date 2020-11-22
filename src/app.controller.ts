@@ -12,10 +12,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiExcludeEndpoint, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { ScanService } from 'scan/scan.service';
 import { AppService } from './app.service';
-
+@ApiTags('pages')
 @Controller()
 export class AppController {
   private readonly logger = new Logger(AppController.name);
@@ -25,6 +26,7 @@ export class AppController {
     private readonly scanService: ScanService
   ) {}
 
+  @ApiExcludeEndpoint()
   @Get(['', 'index'])
   @Render('index')
   async index() {
@@ -40,22 +42,27 @@ export class AppController {
     }
   }
 
+  @ApiExcludeEndpoint()
   @Get('admin')
   @Render('admin')
   admin() {}
 
+  @ApiExcludeEndpoint()
   @Get('organizations')
   @Render('organizations')
   organizations() {}
 
+  @ApiExcludeEndpoint()
   @Get('organizations/:orgName')
   @Render('organization')
   organization(@Param('orgName') orgName: string) {}
 
+  @ApiExcludeEndpoint()
   @Get('organizations/:orgName/projects')
   @Render('projects')
   projects(@Param('orgName') orgName: string) {}
 
+  @ApiExcludeEndpoint()
   @Get('organizations/:orgName/projects/:projectName')
   @Render('project')
   project(
@@ -63,6 +70,7 @@ export class AppController {
     @Param('projectName') projectName: string
   ) {}
 
+  @ApiExcludeEndpoint()
   @Get('organizations/:orgName/projects/:projectName/scans')
   @Render('scans')
   scans(
@@ -70,6 +78,7 @@ export class AppController {
     @Param('projectName') projectName: string
   ) {}
 
+  @ApiExcludeEndpoint()
   @Get([
     'organizations/:orgName/projects/:projectName/scans/:scanId',
     'scans/:scanId',
@@ -93,10 +102,12 @@ export class AppController {
     return { scan, fileWarnings, title: `Dashman - Scan - ${scanId}` };
   }
 
+  @ApiExcludeEndpoint()
   @Get('upload')
   @Render('upload')
   upload() {}
 
+  @ApiExcludeEndpoint()
   @Post('upload')
   @Redirect('/')
   @UseInterceptors(FileInterceptor('scan'))

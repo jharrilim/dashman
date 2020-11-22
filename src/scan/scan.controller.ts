@@ -11,8 +11,9 @@ import { ScanService } from './scan.service';
 import { CreateScanDto } from './dto/create-scan.dto';
 import { UpdateScanDto } from './dto/update-scan.dto';
 import { Scan } from './entities/scan.entity';
-import { ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags(ScanController.name)
 @Controller('api/scan')
 export class ScanController {
   constructor(private readonly scanService: ScanService) {}
