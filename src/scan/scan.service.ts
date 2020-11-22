@@ -19,15 +19,15 @@ export class ScanService {
     return this.scanRepository.find();
   }
 
-  findOne(id: string) {
+  findOne(id: number) {
     return this.scanRepository.findOne(id);
   }
 
-  update(id: string, updateScanDto: UpdateScanDto) {
+  update(id: number, updateScanDto: UpdateScanDto) {
     return this.scanRepository.update(id, updateScanDto);
   }
 
-  remove(id: string) {
+  remove(id: number) {
     return this.scanRepository.delete(id);
   }
 }

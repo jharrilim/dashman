@@ -76,7 +76,7 @@ export class AppController {
   ])
   @Render('scan')
   async scan(
-    @Param('scanId') scanId: string,
+    @Param('scanId') scanId: number,
     @Param('orgName') orgName?: string,
     @Param('projectName') projectName?: string
   ) {

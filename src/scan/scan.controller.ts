@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Put, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ScanService } from './scan.service';
 import { CreateScanDto } from './dto/create-scan.dto';
 import { UpdateScanDto } from './dto/update-scan.dto';
@@ -18,17 +26,17 @@ export class ScanController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.scanService.findOne(id);
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateScanDto: UpdateScanDto) {
+  update(@Param('id') id: number, @Body() updateScanDto: UpdateScanDto) {
     return this.scanService.update(id, updateScanDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.scanService.remove(id);
   }
 }
