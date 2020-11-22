@@ -10,13 +10,16 @@ import {
 import { ScanService } from './scan.service';
 import { CreateScanDto } from './dto/create-scan.dto';
 import { UpdateScanDto } from './dto/update-scan.dto';
+import { Scan } from './entities/scan.entity';
+import { ApiCreatedResponse } from '@nestjs/swagger';
 
 @Controller('api/scan')
 export class ScanController {
   constructor(private readonly scanService: ScanService) {}
 
+  @ApiCreatedResponse({ type: Scan })
   @Post()
-  create(@Body() createScanDto: CreateScanDto) {
+  create(@Body() createScanDto: CreateScanDto): Promise<Scan> {
     return this.scanService.create(createScanDto);
   }
 

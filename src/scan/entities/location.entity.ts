@@ -1,17 +1,22 @@
-import { Column } from "typeorm";
+import { ApiProperty } from '@nestjs/swagger';
+import { Column } from 'typeorm';
 
 export enum LocationType {
-    Method = "method",
-    Template = "template",
+  Method = 'method',
+  Template = 'template',
 }
 
 export class Location {
-    @Column('enum', { enum: LocationType })
-    type:      LocationType;
-    @Column()
-    class?:    string;
-    @Column()
-    method?:   string;
-    @Column()
-    template?: string;
+  @ApiProperty()
+  @Column('enum', { enum: LocationType })
+  type: LocationType;
+  @ApiProperty()
+  @Column()
+  class?: string;
+  @ApiProperty()
+  @Column()
+  method?: string;
+  @ApiProperty()
+  @Column()
+  template?: string;
 }
