@@ -6,7 +6,7 @@
   <div class="">
     <div class="row">
       <div class="col-md">
-        <h1>Scan Results</h1>
+        <h1 id="scan-results">Scan Results</h1>
       </div>
       <div class="col-md">
         <p><%= scan.dateCreated %></p>
@@ -81,44 +81,54 @@
     </tr>
   </section>
   <section>
-    <h2 class="mb-2">Scanned Files</h2>
+    <h2 class="mb-2 mt-4">Files</h2>
+    <ul>
+      <% Object.keys(fileWarnings).forEach((fileName, fileI) => { %>
+      <% const filenameId = fileName.replace(/[^a-zA-Z0-9]/g, '') + fileI %>
+        <li>
+          <a href="#<%= filenameId %>"><%= fileName %></a>
+        </li>
+      <% }) %>
+    </ul>
     <div>
       <% Object.entries(fileWarnings).forEach(([fileName, warnings], fileI) => { %>
       <% const filenameId = fileName.replace(/[^a-zA-Z0-9]/g, '') + fileI %>
-      <h3 class="mb-4"><%= fileName %></h3>
-      <h4>Warnings</h4>
-      <% warnings.forEach((warning, warningI) => { %>
-      <% const warningId = `${filenameId}_${warning.message.replace(/[^a-zA-Z0-9]/g, '')}_${warningI}`; %>
-      <% const confidenceClasses = 'badge badge-pill badge-' + (warning.confidence === 'Weak' ? 'light' : warning.confidence === 'Medium' ? 'warning' : 'danger') %>
-      <div class="card">
-        <div id="<%= warningId %>" class="card-header">
-          <h4 class="mb-0 d-flex justify-content-between">
-            <div>
-              <button class="btn btn-link text-left" type="button" data-toggle="collapse"
-                data-target="#<%= warningId %>_collapse" aria-expanded="true" aria-controls="<%= warningId %>_collapse">
-                <span class="mr-2"><%= warning.message %></span>
-              </button>
-              <a class="btn btn-link <%= confidenceClasses %>" href="https://brakemanscanner.org/docs/confidence/" target="_blank"><%= warning.confidence %></a>
+      <div class="pt-4 pb-4">
+        <h3 id="<%= filenameId %>" class="mb-4"><%= fileName %></h3>
+        <h4>Warnings</h4>
+        <% warnings.forEach((warning, warningI) => { %>
+        <% const warningId = `${filenameId}_${warning.message.replace(/[^a-zA-Z0-9]/g, '')}_${warningI}`; %>
+        <% const confidenceClasses = 'badge badge-pill badge-' + (warning.confidence === 'Weak' ? 'light' : warning.confidence === 'Medium' ? 'warning' : 'danger') %>
+        <div class="card mb-4">
+          <div id="<%= warningId %>" class="card-header">
+            <h4 class="mb-0 d-flex justify-content-between">
+              <div>
+                <button class="btn btn-link text-left" type="button" data-toggle="collapse"
+                  data-target="#<%= warningId %>_collapse" aria-expanded="true"
+                  aria-controls="<%= warningId %>_collapse">
+                  <span class="mr-2"><%= warning.warning_type %></span>
+                </button>
+                <a class="btn btn-link <%= confidenceClasses %>" href="https://brakemanscanner.org/docs/confidence/"
+                  target="_blank"><%= warning.confidence %></a>
+              </div>
+              <a class="btn btn-link text-right" href="<%= warning.link %>" target="_blank">More Info</a>
+            </h4>
+          </div>
+          <div id="<%= warningId %>_collapse" class="collapse show" aria-labelledby="<%= warningId %>">
+            <div class="card-body">
+              <pre>
+                <code class="language-ruby" style="white-space: pre-wrap;"><%= warning.code?.trim().replace(/\\n/g, '\n') %></code>
+              </pre>
+              <blockquote><%= warning.message %></blockquote>
             </div>
-            <a class="btn btn-link text-right" href="<%= warning.link %>" target="_blank">More Info</a>
-          </h4>
-        </div>
-        <div id="<%= warningId %>_collapse" class="collapse show" aria-labelledby="<%= warningId %>">
-          <div class="card-body">
-            <pre>
-              <code class="language-ruby" style="white-space: pre-wrap;"><%= warning.code?.trim().replace(/\\n/g, '\n') %></code>
-            </pre>
-            <blockquote><%= ''%></blockquote>
           </div>
         </div>
+        <% }); %>
+        <a class="d-block text-right" href="#scan-results">Back to top</a>
       </div>
-      <% }); %>
       <% }); %>
     </div>
   </section>
-  <code>
-    <%= JSON.stringify(scan.warnings[0], null, 2) %>
-  </code>
   <div class="d-none" aria-hidden>
     <span id="securityWarningsCount"><%= scan.scan_info.security_warnings %></span>
   </div>
