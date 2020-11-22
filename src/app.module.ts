@@ -11,7 +11,7 @@ import { ProjectModule } from './project/project.module';
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.DATABASE_HOST ?? 'localhost',
-      port: +process.env.DATABASE_PORT ?? 5654,
+      port: +(process.env.DATABASE_PORT ?? 5654),
       username: process.env.DATABASE_USERNAME ?? 'dashman',
       password: process.env.DATABASE_PASSWORD ?? 'dashm4n',
       database: process.env.DATABASE_DATABASE ?? 'dashman',

@@ -4,3 +4,4 @@ node_modules
 Dockerfile
 brakeman.json
 docker-compose.yml
+.env
