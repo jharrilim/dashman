@@ -34,4 +34,10 @@ export class Scan {
 
   @ManyToOne(type => Project)
   project: Project;
+
+  @Column({
+    nullable: true,
+    type: 'varchar',
+  })
+  commitHash: string | null;
 }

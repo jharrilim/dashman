@@ -33,7 +33,6 @@ export class AppController {
         link: `/scans/${scan.id}`,
         dateCreated: scan.dateCreated,
       }));
-      this.logger.log(scans);
       return { scans };
     } catch (e) {
       this.logger.log(e);
@@ -41,10 +40,44 @@ export class AppController {
     }
   }
 
-  @Get('scans/:id')
+  @Get('admin')
+  @Render('admin')
+  admin() {}
+
+  @Get('organizations')
+  @Render('organizations')
+  organizations() {}
+
+  @Get('organizations/:orgName')
+  @Render('organization')
+  organization(@Param('orgName') orgName: string) {}
+
+  @Get('organizations/:orgName/projects')
+  @Render('projects')
+  projects(@Param('orgName') orgName: string) {}
+
+  @Get('organizations/:orgName/projects/:projectName')
+  @Render('project')
+  project(
+    @Param('orgName') orgName: string,
+    @Param('projectName') projectName: string
+  ) {}
+
+  @Get('organizations/:orgName/projects/:projectName/scans')
+  @Render('scans')
+  scans(
+    @Param('orgName') orgName: string,
+    @Param('projectName') projectName: string
+  ) {}
+
+  @Get('organizations/:orgName/projects/:projectName/scans/:scanId')
   @Render('scan')
-  async scan(@Param('id') id: string) {
-    const scan = await this.scanService.findOne(id);
+  async scan(
+    @Param('orgName') orgName: string,
+    @Param('projectName') projectName: string,
+    @Param('scanId') scanId: string
+  ) {
+    const scan = await this.scanService.findOne(scanId);
     const fileWarnings = scan.warnings.reduce(
       (warnings, warning) => ({
         ...warnings,
@@ -54,7 +87,7 @@ export class AppController {
       }),
       {}
     );
-    return { scan, fileWarnings };
+    return { scan, fileWarnings, title: `Dashman - Scan - ${scanId}` };
   }
 
   @Get('upload')

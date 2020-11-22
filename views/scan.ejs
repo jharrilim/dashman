@@ -106,7 +106,7 @@
         <div id="<%= warningId %>_collapse" class="collapse show" aria-labelledby="<%= warningId %>">
           <div class="card-body">
             <pre>
-              <code class="language-ruby" style="overflow-x: scroll;"><%= warning.code?.trim().replace(/\\n/g, '\n') %></code>
+              <code class="language-ruby" style="white-space: pre-wrap;"><%= warning.code?.trim().replace(/\\n/g, '\n') %></code>
             </pre>
             <blockquote><%= ''%></blockquote>
           </div>
