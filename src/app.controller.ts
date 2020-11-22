@@ -70,12 +70,15 @@ export class AppController {
     @Param('projectName') projectName: string
   ) {}
 
-  @Get('organizations/:orgName/projects/:projectName/scans/:scanId')
+  @Get([
+    'organizations/:orgName/projects/:projectName/scans/:scanId',
+    'scans/:scanId',
+  ])
   @Render('scan')
   async scan(
-    @Param('orgName') orgName: string,
-    @Param('projectName') projectName: string,
-    @Param('scanId') scanId: string
+    @Param('scanId') scanId: string,
+    @Param('orgName') orgName?: string,
+    @Param('projectName') projectName?: string
   ) {
     const scan = await this.scanService.findOne(scanId);
     const fileWarnings = scan.warnings.reduce(
